@@ -2,10 +2,10 @@
 using namespace std;
 
 struct SegmentTree{
-    SegmentTree(vector<int> v){
+    SegmentTree(vector<int> v, int ini){
         int sz = v.size();
         n = 1;  while(n < sz) n *= 2;
-        node.resize(2*n-1, INT_MAX);
+        node.resize(2*n-1, ini);
 
         for(int i=0; i<sz; i++){
             node[i+n-1] = v[i];
