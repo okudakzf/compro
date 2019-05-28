@@ -3,27 +3,36 @@ using namespace std;
 
 struct union_find{
     union_find(int n){
-        par = vector<int>(n+1, -1);
+        parent = vector<int>(n, -1);
+        weight = vector<int>(n, 0);
     }
     int find(int x){
-        if(par[x] < 0) return x;
-        else return par[x] = find(par[x]);
+        if(parent[x] < 0) return x;
+        else return parent[x] = find(parent[x]);
     }
-    bool same(int x, int y){
+    bool isSame(int x, int y){
         return find(x) == find(y);
     }
     void unite(int x, int y){
         x = find(x);
         y = find(y);
-        if(x == y) return;
-        if(par[x] < par[y]) swap(x,y);
-        par[x] += par[y];
-        par[y] = x;
+        if(x == y){
+            weight[x]++;
+            return;
+        }
+        if(parent[x] < parent[y]) swap(x,y);
+        parent[x] += parent[y];
+        parent[y] = x;
+        weight[x] += weight[y] + 1;
     }
     int getSize(int x){
-        return -par[x];
+        return -parent[x];
+    }
+    int getWeight(int x){
+        return weight[find(x)];
     }
 
     private:
-        vector<int> par;
+        vector<int> parent;
+        vector<int> weight;
 };
