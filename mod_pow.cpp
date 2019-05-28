@@ -2,7 +2,7 @@
 using namespace std;
 typedef long long ll;
 
-ll mod_pow(int n, int p, int mod){
+ll mod_pow(ll n, ll p, ll mod){
     // return (n^p) % mod
     if(p==0) return 1;
     ll res = mod_pow(n*n%mod, p/2, mod);
