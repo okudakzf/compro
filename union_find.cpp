@@ -26,7 +26,7 @@ struct union_find{
         weight[x] += weight[y] + 1;
     }
     int getSize(int x){
-        return -parent[x];
+        return -parent[find(x)];
     }
     int getWeight(int x){
         return weight[find(x)];
