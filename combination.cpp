@@ -14,7 +14,7 @@ struct pascal_triangle {
         if(n==r || r==0){
             value[n][r] = 1;
         }else{
-            value[n][r] = calc(n-1,r-1) + calc(n-1,r);
+            value[n][r] = (calc(n-1,r-1) + calc(n-1,r))%MOD;
         }
         return value[n][r];
     }
