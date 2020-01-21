@@ -2,6 +2,9 @@
 #define ll long long
 using namespace std;
 
+// 1が立っているビットの数を数える。
+int cntbit(int A) { return (A < 2) ? 1 : 1 + cntbit(A/2); }
+
 // Aの下からKbit目(0-indexed)を返す
 int kthbit(int A, int K) { return (A >> K) & 1; }
  
