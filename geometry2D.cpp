@@ -1,13 +1,13 @@
 #include <bits/stdc++.h>
-using namespace std;
 
 struct Point2D {
-    Point2D(double A, double B){
-        x = A;  y = B;
+    Point2D(double X, double Y){
+        x = X;  y = Y;
     }
     bool operator ==(const Point2D &p){
         return p.x == this->x && p.y == this->y;
     }
+
     double x, y;
 };
 
@@ -30,5 +30,15 @@ struct Line2D {
     double distance(Point2D* p){
         return abs(a * p->x + b * p->y + c)/sqrt(a*a + b*b);
     }
+
     double a, b, c;
+};
+
+struct Circle {
+    Circle(Point2D* center, double radius){
+        this->center = center;  this->radius = radius;
+    }
+
+    Point2D* center;
+    double radius;
 };

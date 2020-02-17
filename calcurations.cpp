@@ -20,3 +20,25 @@ int slide(int A, int w, int k) {
         return (A >> (-k)) + (mask(A, -k) << (w - (-k)));
     }
 }
+
+ll ceil(ll a, ll b){
+    if(b < 0){
+        a *= -1;  b *= -1;
+    }
+    if(a >= 0){
+        return (a+b-1)/b;
+    }else{
+        return a/b;
+    }
+}
+
+ll floor(ll a, ll b){
+    if(b < 0){
+        a *= -1;  b *= -1;
+    }
+    if(a < 0){
+        return (a-b+1)/b;
+    }else{
+        return a/b;
+    }
+}
