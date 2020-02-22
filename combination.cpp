@@ -34,6 +34,7 @@ struct combination {
     }
 
     ll calc(ll n, ll r){
+        if(r < 0 || r > n) return 0;
         ll ret = (factorial[n]*inverse_factorial[r])%MOD;
         ret = (ret*inverse_factorial[n-r])%MOD;
         return ret;
