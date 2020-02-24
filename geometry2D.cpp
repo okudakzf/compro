@@ -9,9 +9,10 @@ struct Point2D {
     Point2D operator +(const Point2D p){ return Point2D(x + p.x, y + p.y); }
     Point2D operator -(const Point2D p){ return Point2D(x - p.x, y - p.y); }
     Point2D operator *(const double d){ return Point2D(d*x, d*y); }
-    double operator *(const Point2D p){ return x*p.x + y*p.y; }
     Point2D operator /(const double d){ return Point2D(x/d, y/d); }
     double norm(){ return sqrt(x*x + y*y); }
+
+    static double dot(Point2D p0, Point2D p1){ return p0.x * p1.x + p0.y * p1.y; }
 
     double x, y;
 };
