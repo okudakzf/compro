@@ -59,6 +59,8 @@ struct Circle {
         radius = a*b*c/sqrt((a+b+c)*(-a+b+c)*(a-b+c)*(a+b-c));
     }
 
+    bool operator ==(const Circle c){ return center == c.center && radius == c.radius; }
+
     Point2D center;
     double radius;
 };
