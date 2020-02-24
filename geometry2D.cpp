@@ -18,7 +18,7 @@ struct Point2D {
 };
 
 struct Line2D {
-    //ax + by + c = 0
+    // ax + by + c = 0
     Line2D(){}
     Line2D(double a, double b, double c): a(a), b(b), c(c) { }
     Line2D(Point2D p0, Point2D p1){
@@ -52,11 +52,12 @@ struct Circle {
         double a = (p2 - p1).norm();
         double b = (p0 - p2).norm();
         double c = (p1 - p0).norm();
+
         double A = a*a*(b*b + c*c - a*a);
         double B = b*b*(c*c + a*a - b*b);
         double C = c*c*(a*a + b*b - c*c);
-        
         center = (p0*A + p1*B + p2*C)/(A+B+C);
+
         radius = a*b*c/sqrt((a+b+c)*(-a+b+c)*(a-b+c)*(a+b-c));
     }
 
