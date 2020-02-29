@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct union_find {
-    union_find(int n) {
+struct UnionFind {
+    UnionFind(int n) {
         parent = vector<int>(n, -1);
         weight = vector<int>(n, 0);
     }
