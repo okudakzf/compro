@@ -32,9 +32,14 @@ struct Line2D {
             c = p1.x * p0.y - p0.x * p1.y;
         }
     }
-    double distance(Point2D p){
-        return abs(a * p.x + b * p.y + c)/sqrt(a*a + b*b);
+
+    static Point2D getIntersection(Line2D l1, Line2D l2){
+        return Point2D(l1.b*l2.c - l2.b*l1.c, l2.a*l1.c - l1.a*l2.c)/(l1.a*l2.b - l1.b*l2.a);
     }
+
+    static bool isParallel(Line2D l1, Line2D l2){ return l1.a*l2.b == l1.b*l2.a; }
+
+    double getDistance(Point2D p){ return abs(a * p.x + b * p.y + c)/sqrt(a*a + b*b); }
 
     double a, b, c;
 };
