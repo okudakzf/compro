@@ -3,14 +3,14 @@
 using namespace std;
 
 // 1が立っているビットの数を数える。
-int cntbit(int A) { return (A < 2) ? 1 : 1 + cntbit(A/2); }
+int cntbit(int A) { return (A < 2) ? 1 : 1 + cntbit(A / 2); }
 
 // Aの下からKbit目(0-indexed)を返す
 int kthbit(int A, int K) { return (A >> K) & 1; }
- 
+
 // Aの下からKbitを取り出す
 int mask(int A, int K) { return A & ((1 << K) - 1); }
- 
+
 // wbit整数Aをkbitだけ左に回す
 // kが負なら右に回す
 int slide(int A, int w, int k) {
@@ -21,24 +21,26 @@ int slide(int A, int w, int k) {
     }
 }
 
-ll ceil(ll a, ll b){
-    if(b < 0){
-        a *= -1;  b *= -1;
+ll ceil(ll a, ll b) {
+    if (b < 0) {
+        a *= -1;
+        b *= -1;
     }
-    if(a >= 0){
-        return (a+b-1)/b;
-    }else{
-        return a/b;
+    if (a >= 0) {
+        return (a + b - 1) / b;
+    } else {
+        return a / b;
     }
 }
 
-ll floor(ll a, ll b){
-    if(b < 0){
-        a *= -1;  b *= -1;
+ll floor(ll a, ll b) {
+    if (b < 0) {
+        a *= -1;
+        b *= -1;
     }
-    if(a < 0){
-        return (a-b+1)/b;
-    }else{
-        return a/b;
+    if (a < 0) {
+        return (a - b + 1) / b;
+    } else {
+        return a / b;
     }
 }
