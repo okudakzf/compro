@@ -17,6 +17,7 @@ string addString(string s, string t) {
         ret %= 10;
         ans = (char)(ret + '0') + ans;
     }
-    if (dig) ans = '1' + ans;
+    if (dig)
+        ans = '1' + ans;
     return ans;
 }

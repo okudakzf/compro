@@ -6,16 +6,18 @@ struct BinaryIndexedTree {
     BinaryIndexedTree(int N) { bit.resize(N + 1, 0); }
 
     T sum(int i) {
-        if (i == 0) return 0;
+        if (i == 0)
+            return 0;
         return bit[i] + sum(i & (i - 1));
     }
 
     void add(int i, T val) {
-        if (i >= bit.size()) return;
+        if (i >= bit.size())
+            return;
         bit[i] += val;
         add(i + (i & -i), val);
     }
 
-   private:
+private:
     vector<T> bit;
 };

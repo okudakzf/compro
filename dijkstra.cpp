@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 #define ll long long
-#define P pair<ll, int>  // <Minimum distance, Vertex number>
+#define P pair<ll, int> // <Minimum distance, Vertex number>
 #define inf 1e15
 using namespace std;
 
@@ -18,7 +18,8 @@ vector<ll> dijkstra(vector<vector<edge>> E, int N) {
         P p = que.top();
         que.pop();
         int v = p.second;
-        if (dist[v] < p.first) continue;
+        if (dist[v] < p.first)
+            continue;
 
         for (int i = 0; i < E[v].size(); i++) {
             edge e = E[v][i];

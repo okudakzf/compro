@@ -10,7 +10,8 @@ struct pascal_triangle {
     }
 
     ll calc(ll n, ll r) {
-        if (value[n][r] != -1) return value[n][r];
+        if (value[n][r] != -1)
+            return value[n][r];
         if (n == r || r == 0) {
             value[n][r] = 1;
         } else {
@@ -19,7 +20,7 @@ struct pascal_triangle {
         return value[n][r];
     }
 
-   private:
+private:
     ll MOD, Nmax;
     vector<vector<ll>> value;
 };
@@ -34,21 +35,24 @@ struct combination {
     }
 
     ll calc(ll n, ll r) {
-        if (r < 0 || r > n) return 0;
+        if (r < 0 || r > n)
+            return 0;
         ll ret = (factorial[n] * inverse_factorial[r]) % MOD;
         ret = (ret * inverse_factorial[n - r]) % MOD;
         return ret;
     }
 
-   private:
+private:
     ll MOD, Nmax;
     vector<ll> factorial;
     vector<ll> inverse_factorial;
     ll mod_pow(ll n, ll p, ll mod) {
         n %= mod;
-        if (p == 0) return 1;
+        if (p == 0)
+            return 1;
         ll res = mod_pow(n * n % mod, p / 2, mod);
-        if (p % 2 == 1) res = res * n % mod;
+        if (p % 2 == 1)
+            res = res * n % mod;
         return res;
     }
 

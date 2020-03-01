@@ -20,7 +20,8 @@ struct UnionFind {
             weight[x]++;
             return;
         }
-        if (parent[x] < parent[y]) swap(x, y);
+        if (parent[x] < parent[y])
+            swap(x, y);
         parent[x] += parent[y];
         parent[y] = x;
         weight[x] += weight[y] + 1;
@@ -28,7 +29,7 @@ struct UnionFind {
     int getSize(int x) { return -parent[find(x)]; }
     int getWeight(int x) { return weight[find(x)]; }
 
-   private:
+private:
     vector<int> parent;
     vector<int> weight;
 };
