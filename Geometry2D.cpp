@@ -1,20 +1,24 @@
 #include <bits/stdc++.h>
+using namespace std;
 
-double EPS = 1e-10;
-struct Point2D {
-    Point2D() {}
-    Point2D(double x, double y) : x(x), y(y) {}
+double EPS = 1e-7;
+struct Vector2D {
+    Vector2D() {}
+    Vector2D(double x, double y) : x(x), y(y) {}
 
-    bool operator==(const Point2D p) {
+    bool operator==(const Vector2D p) {
         return abs(p.x - x) < EPS && abs(p.y - y) < EPS;
     }
-    Point2D operator+(const Point2D p) { return Point2D(x + p.x, y + p.y); }
-    Point2D operator-(const Point2D p) { return Point2D(x - p.x, y - p.y); }
-    Point2D operator*(const double d) { return Point2D(d * x, d * y); }
-    Point2D operator/(const double d) { return Point2D(x / d, y / d); }
+    Vector2D operator+(const Vector2D p) { return Vector2D(x + p.x, y + p.y); }
+    Vector2D operator-(const Vector2D p) { return Vector2D(x - p.x, y - p.y); }
+    Vector2D operator*(const double d) { return Vector2D(d * x, d * y); }
+    Vector2D operator/(const double d) { return Vector2D(x / d, y / d); }
     double norm() { return sqrt(x * x + y * y); }
+    Vector2D rotate(double theta) {
+        return Vector2D(x * cos(theta) - y * sin(theta), x * sin(theta) + y * cos(theta));
+    }
 
-    static double dot(Point2D p0, Point2D p1) {
+    static double dot(Vector2D p0, Vector2D p1) {
         return p0.x * p1.x + p0.y * p1.y;
     }
 
@@ -25,7 +29,7 @@ struct Line2D {
     // ax + by + c = 0
     Line2D() {}
     Line2D(double a, double b, double c) : a(a), b(b), c(c) {}
-    Line2D(Point2D p0, Point2D p1) {
+    Line2D(Vector2D p0, Vector2D p1) {
         if (p0.x == p1.x) {
             a = 1;
             b = 0;
@@ -41,16 +45,15 @@ struct Line2D {
         }
     }
 
-    static Point2D getIntersection(Line2D l1, Line2D l2) {
-        return Point2D(l1.b * l2.c - l2.b * l1.c, l2.a * l1.c - l1.a * l2.c) /
-               (l1.a * l2.b - l1.b * l2.a);
+    static Vector2D getIntersection(Line2D l1, Line2D l2) {
+        return Vector2D(l1.b * l2.c - l2.b * l1.c, l2.a * l1.c - l1.a * l2.c) / (l1.a * l2.b - l1.b * l2.a);
     }
 
     static bool isParallel(Line2D l1, Line2D l2) {
         return l1.a * l2.b == l1.b * l2.a;
     }
 
-    double getDistance(Point2D p) {
+    double getDistance(Vector2D p) {
         return abs(a * p.x + b * p.y + c) / sqrt(a * a + b * b);
     }
 
@@ -59,13 +62,13 @@ struct Line2D {
 
 struct Circle {
     Circle() {}
-    Circle(Point2D center, double radius) : center(center), radius(radius) {}
-    Circle(Point2D p0, Point2D p1) {
+    Circle(Vector2D center, double radius) : center(center), radius(radius) {}
+    Circle(Vector2D p0, Vector2D p1) {
         // 2点を直径とする円
         center = (p0 + p1) / 2;
         radius = (p0 - p1).norm();
     }
-    Circle(Point2D p0, Point2D p1, Point2D p2) {
+    Circle(Vector2D p0, Vector2D p1, Vector2D p2) {
         // 3点の外接円
         double a = (p2 - p1).norm();
         double b = (p0 - p2).norm();
@@ -76,14 +79,30 @@ struct Circle {
         double C = c * c * (a * a + b * b - c * c);
         center = (p0 * A + p1 * B + p2 * C) / (A + B + C);
 
-        radius = a * b * c /
-                 sqrt((a + b + c) * (-a + b + c) * (a - b + c) * (a + b - c));
+        radius = a * b * c / sqrt((a + b + c) * (-a + b + c) * (a - b + c) * (a + b - c));
+    }
+
+    bool hasPoint(Vector2D p) {
+        return (center - p).norm() <= radius + EPS;
+    }
+    static vector<Vector2D> getCommonPoint(Circle C0, Circle C1) {
+        double d = (C1.center - C0.center).norm();
+        double rc = (C0.radius * C0.radius + d * d - C1.radius * C1.radius) / (2 * d);
+        double rs = sqrt(C0.radius * C0.radius - rc * rc);
+        Vector2D unit = (C1.center - C0.center) / d;
+        Vector2D p0 = C0.center + unit * rc + unit.rotate(M_PI / 2) * rs;
+        Vector2D p1 = C0.center + unit * rc + unit.rotate(-M_PI / 2) * rs;
+        return {p0, p1};
+    }
+    static bool hasCommonPoint(Circle C0, Circle C1) {
+        double d = (C0.center - C1.center).norm();
+        return abs(C0.radius - C1.radius) - EPS <= d && d <= (C0.radius + C1.radius) + EPS;
     }
 
     bool operator==(const Circle c) {
         return center == c.center && radius == c.radius;
     }
 
-    Point2D center;
+    Vector2D center;
     double radius;
 };

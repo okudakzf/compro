@@ -3,8 +3,8 @@ using namespace std;
 
 struct UnionFind {
     UnionFind(int n) {
-        parent = vector<int>(n, -1);
-        weight = vector<int>(n, 0);
+        parent.resize(n, -1);
+        weight.resize(n, 0);
     }
     int find(int x) {
         if (parent[x] < 0)
