@@ -2,28 +2,15 @@
 #define ll long long
 using namespace std;
 
-struct pascal_triangle {
-    pascal_triangle(ll Nmax, ll mod) {
-        (this->MOD) = mod;
-        (this->Nmax) = Nmax;
-        value.resize(Nmax, vector<ll>(Nmax, -1));
-    }
-
-    ll calc(ll n, ll r) {
-        if (value[n][r] != -1)
-            return value[n][r];
-        if (n == r || r == 0) {
-            value[n][r] = 1;
-        } else {
-            value[n][r] = (calc(n - 1, r - 1) + calc(n - 1, r)) % MOD;
-        }
-        return value[n][r];
-    }
-
-private:
-    ll MOD, Nmax;
-    vector<vector<ll>> value;
-};
+ll mod_pow(ll n, ll p, ll mod) {
+    n %= mod;
+    if (p == 0)
+        return 1;
+    ll res = mod_pow(n * n % mod, p / 2, mod);
+    if (p % 2 == 1)
+        res = res * n % mod;
+    return res;
+}
 
 struct combination {
     combination(ll Nmax, ll mod) {
@@ -42,19 +29,11 @@ struct combination {
         return ret;
     }
 
-private:
-    ll MOD, Nmax;
     vector<ll> factorial;
     vector<ll> inverse_factorial;
-    ll mod_pow(ll n, ll p, ll mod) {
-        n %= mod;
-        if (p == 0)
-            return 1;
-        ll res = mod_pow(n * n % mod, p / 2, mod);
-        if (p % 2 == 1)
-            res = res * n % mod;
-        return res;
-    }
+
+private:
+    ll MOD, Nmax;
 
     void init_factorial() {
         for (ll i = 1; i <= Nmax; i++) {
